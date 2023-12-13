@@ -3,8 +3,9 @@ package vn.titv.webbansach_backend.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
-@Data
+import java.sql.Blob;
 @Entity
+@Data
 @Table(name = "hinh_anh")
 public class HinhAnh {
     @Id
@@ -15,22 +16,61 @@ public class HinhAnh {
     @Column(name = "ten_hinh_anh", length = 256)
     private String tenHinhAnh;
 
-    @Column(name = "la_icon")
-    private boolean laIcon;
-
     @Column(name = "duong_dan")
     private String duongDan;
 
-    @Column(name = "du_lieu_anh")
+    @Column(name = "du_lieu_anh", columnDefinition = "LONGTEXT")
     @Lob
     private String duLieuAnh;
 
     @ManyToOne(cascade = {
-            CascadeType.PERSIST,
-            CascadeType.MERGE,
-            CascadeType.DETACH,
-            CascadeType.REFRESH
+            CascadeType.PERSIST, CascadeType.MERGE,
+            CascadeType.DETACH, CascadeType.REFRESH
     })
-    @JoinColumn(name = "ma_sach", nullable = false) // bắt buộc phải có sách mới có hình ảnh
+    @JoinColumn(name = "ma_sach")
     private Sach sach;
+
+
+    public HinhAnh() {
+    }
+
+    public int getMaHinhAnh() {
+        return maHinhAnh;
+    }
+
+    public void setMaHinhAnh(int maHinhAnh) {
+        this.maHinhAnh = maHinhAnh;
+    }
+
+    public String getTenHinhAnh() {
+        return tenHinhAnh;
+    }
+
+    public void setTenHinhAnh(String tenHinhAnh) {
+        this.tenHinhAnh = tenHinhAnh;
+    }
+
+    public String getDuongDan() {
+        return duongDan;
+    }
+
+    public void setDuongDan(String duongDan) {
+        this.duongDan = duongDan;
+    }
+
+    public String getDuLieuAnh() {
+        return duLieuAnh;
+    }
+
+    public void setDuLieuAnh(String duLieuAnh) {
+        this.duLieuAnh = duLieuAnh;
+    }
+
+    public Sach getSach() {
+        return sach;
+    }
+
+    public void setSach(Sach sach) {
+        this.sach = sach;
+    }
 }
